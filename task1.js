@@ -1,3 +1,3 @@
 function sum(a, b) {
-  return Math.floor((+a + +b) * 1000) / 1000;
+  return +(+a + +b).toFixed(3);
 }
