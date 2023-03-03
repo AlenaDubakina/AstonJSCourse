@@ -1,30 +1,21 @@
+const isNumber = (num) => !Number.isNaN(num) && typeof num === 'number';
+const isNumberArr = (arr) =>
+  Array.isArray(arr) && !arr.some((el) => !isNumber(el));
+const messageErrorNumberArr = (param) =>
+  `В функцию getInterval были переданы невалидные параметры. Параметр ${param} должен содержать только числовые значения`;
+const messageErrorNumber = (param) =>
+  `В функцию getInterval были переданы невалидные параметры. Параметр ${param} должен быть числом`;
+const error = ({ arr, from, to }) => {
+  if (!isNumberArr(arr)) throw new Error(messageErrorNumberArr('arr'));
+  if (!isNumber(from)) throw new Error(messageErrorNumber('from'));
+  if (!isNumber(to)) throw new Error(messageErrorNumber('to'));
+};
 function getInterval(arr, from, to) {
-  if (!arr.every((el) => typeof el === 'number')) {
-    throw new Error(
-      'В функцию getInterval были переданы невалидные параметры. Параметр arr должен содержать только числовые значения'
-    );
-  } else if (typeof from !== 'number') {
-    throw new Error(
-      'В функцию getInterval были переданы невалидные параметры. Параметр from должен быть числом.'
-    );
-  } else if (typeof to !== 'number') {
-    throw new Error(
-      'В функцию getInterval были переданы невалидные параметры. Параметр to должен быть числом.'
-    );
-  } else {
-    let array = [];
-    const start = Math.min(from, to);
-    const end = Math.max(from, to);
-    for (let i = start; i <= end; i++) {
-      arr.includes(i) ? array.push(i) : array;
-    }
+  let paramObj = { arr, from, to };
+  error(paramObj);
 
-    return array;
-  }
+  const start = Math.min(from, to);
+  const end = Math.max(from, to);
+  const newArr = arr.filter((el) => el >= start && el <= end);
+  return newArr;
 }
-
-// проверка
-console.log(getInterval([5, 6, 9, 45], 8, 25));
-// console.log(getInterval([5, '6', 9, 45], 8, 25));
-// console.log(getInterval([5, 6, 9, 45], '8', 25));
-// console.log(getInterval([5, 6, 9, 45], 8, '25'));

@@ -1,22 +1,17 @@
 function createLiker() {
-  let raiting = 0;
-  return {
-    like() {
-      return ++raiting;
-    },
-    dislike() {
-      return --raiting;
-    },
-    val() {
-      return raiting;
-    },
+  let rating = 0;
+  const obj = {};
+  const like = () => {
+    rating++;
+    return obj;
   };
+  const dislike = () => {
+    rating--;
+    return obj;
+  };
+  const val = () => rating;
+  Object.entries({ like, dislike, val }).forEach(
+    ([key, value]) => (obj[key] = value)
+  );
+  return obj;
 }
-
-// пример
-const liker = createLiker();
-liker.like();
-liker.like();
-liker.like();
-liker.dislike();
-console.log(liker.val());
