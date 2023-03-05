@@ -1,5 +1,5 @@
 function createPerson({ name = 'New User', skills = [] }) {
-  return {
+  const person = {
     name,
     skills,
     addSkill(newSkill) {
@@ -16,4 +16,6 @@ function createPerson({ name = 'New User', skills = [] }) {
       return this;
     },
   };
+  Object.seal(person);
+  return person;
 }
